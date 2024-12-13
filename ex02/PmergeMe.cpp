@@ -3,6 +3,21 @@
 PmergeMe::PmergeMe() {}
 PmergeMe::~PmergeMe() {}
 
+PmergeMe::PmergeMe(const PmergeMe &other)
+{
+    (void)other;
+    std::cout << "Copy constructor called" << std::endl;
+}
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& other) 
+{
+    if (this != &other) 
+    {
+        std::cout << "Copy assignment operator called" << std::endl;
+    }
+    return *this;
+}
+
 void PmergeMe::printSequence(const std::string& message, const std::vector<int>& sequence) const 
 {
     std::cout << message;

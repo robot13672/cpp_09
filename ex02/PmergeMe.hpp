@@ -14,6 +14,8 @@ class PmergeMe
     public:
         PmergeMe();
         ~PmergeMe();
+        PmergeMe(const PmergeMe& other);
+        PmergeMe& operator=(const PmergeMe& other);
 
         void sortWithVector(const std::vector<int>& input);
         void sortWithList(const std::vector<int>& input);
