@@ -87,3 +87,8 @@ bool BitcoinExchange::isValidValue(float value) const
 {
     return value >= 0.0f && value <= 1000.0f;
 }
+
+bool BitcoinExchange::isValidMapSize() const
+{
+    return _exchangeRates.size() > 0;
+}

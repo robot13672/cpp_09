@@ -23,6 +23,7 @@ class BitcoinExchange
         float getExchangeRate(std::string date) const;
         bool isValidDate(std::string &date) const;
         bool isValidValue(float value) const;
+        bool isValidMapSize() const;
 };
 
 #endif

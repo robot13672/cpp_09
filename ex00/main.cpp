@@ -13,7 +13,11 @@ int main(int argc, char **argv)
         std::cerr << "Cannot read database" << std::endl;
         return 1;
     }
-    
+    if (!btc.isValidMapSize())
+    {
+        std::cerr << "Database has any date" << std::endl;
+        return 1;
+    }
     std::ifstream inputFile(argv[1]);
     if (!inputFile.is_open())
     {
@@ -29,6 +33,7 @@ int main(int argc, char **argv)
         std::string valueStr;
         std::getline(ss, date, '|');
         std::getline(ss, valueStr);
+        bool allNumeric = true;
         if (date == "")
         {
             std::cerr << "Error: bad input => no date" << std::endl;
@@ -49,6 +54,19 @@ int main(int argc, char **argv)
 
         valueStr = valueStr.substr(valueStr.find_first_not_of(" "));
 
+        for (size_t i = 0; i < valueStr.length(); ++i)
+        {
+            if (!std::isdigit(valueStr[i]) && valueStr[i] != '.' && valueStr[i] != '-')
+            {
+                allNumeric = false;
+                break;
+            }
+        }
+        if(!allNumeric)
+        {
+            std::cerr << "Error: bad input => " << valueStr << std::endl;
+            continue;
+        }
         float value = atof(valueStr.c_str());
         if (!btc.isValidValue(value))
         {
