@@ -21,7 +21,8 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other)
 void PmergeMe::printSequence(const std::string& message, const std::vector<int>& sequence) const 
 {
     std::cout << message;
-    for (std::vector<int>::const_iterator it = sequence.begin(); it != sequence.end(); ++it) {
+    for (std::vector<int>::const_iterator it = sequence.begin(); it != sequence.end(); ++it) 
+    {
         std::cout << *it << " ";
     }
     std::cout << std::endl;
@@ -30,7 +31,8 @@ void PmergeMe::printSequence(const std::string& message, const std::vector<int>&
 void PmergeMe::printSequence(const std::string& message, const std::list<int>& sequence) const 
 {
     std::cout << message;
-    for (std::list<int>::const_iterator it = sequence.begin(); it != sequence.end(); ++it) {
+    for (std::list<int>::const_iterator it = sequence.begin(); it != sequence.end(); ++it) 
+    {
         std::cout << *it << " ";
     }
     std::cout << std::endl;
@@ -39,25 +41,29 @@ void PmergeMe::printSequence(const std::string& message, const std::list<int>& s
 void PmergeMe::sortWithVector(const std::vector<int>& input) 
 {
     std::vector<int> sequence = input;
-    clock_t start = clock();
+
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     mergeInsertSort(sequence);
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
-    clock_t end = clock();
+    long long duration = (end.tv_sec - start.tv_sec) * 1000000000LL + (end.tv_nsec - start.tv_nsec);
     printSequence("After (vector): ", sequence);
-    std::cout << "Time to process with std::vector: " << (double)(end - start) / CLOCKS_PER_SEC << " s" << std::endl;
+    std::cout << "Time to process with std::vector: " << duration << " ns" << std::endl;
 }
 
 void PmergeMe::sortWithList(const std::vector<int>& input) 
 {
     std::list<int> sequence(input.begin(), input.end());
-    clock_t start = clock();
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     mergeInsertSort(sequence);
-
-    clock_t end = clock();
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    long long duration = (end.tv_sec - start.tv_sec) * 1000000000LL + (end.tv_nsec - start.tv_nsec);
     printSequence("After (list): ", sequence);
-    std::cout << "Time to process with std::list: " << (double)(end - start) / CLOCKS_PER_SEC << " s" << std::endl;
+    std::cout << "Time to process with std::list: " << duration << " ns" << std::endl;
 }
 
 
@@ -88,7 +94,6 @@ void PmergeMe::mergeInsertSort(std::vector<int>& sequence)
         }
     }
 }
-
 
 void PmergeMe::mergeInsertSort(std::list<int>& sequence) 
 {

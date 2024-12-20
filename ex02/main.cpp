@@ -15,7 +15,8 @@ int main(int argc, char** argv)
         {
             std::istringstream iss(argv[i]);
             int num;
-            if (!(iss >> num) || num < 0) 
+            char extra;
+            if (!(iss >> num) || num < 0 || (iss >> extra)) 
             {
                 throw std::invalid_argument("Invalid input");
             }
